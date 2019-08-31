@@ -1,0 +1,27 @@
+SELECT table_name FROM user_tables;
+
+create table students(Id int NOT NULL,Name varchar(30),Email varchar(30),Phoneno int,DOB DATE,Address varchar(50),Height_in_cm float,Deptno int NOT NULL);
+
+create table department(Deptno int NOT NULL,Dname varchar(20) CONSTRAINT UN Unique,Loc varchar(20));
+
+
+alter table students add date_of_joining date;
+
+alter table students add stipend int NOT NULL;
+
+alter table students add check (stipend>0);
+
+alter table students add primary key (id);
+
+alter table department add primary key (Deptno);
+
+alter table students add constraint fk foreign key (Deptno) References department (Deptno);
+
+ALTER TABLE students DROP COLUMN date_of_joining;
+
+ALTER TABLE students DROP COLUMN Address;
+
+ALTER TABLE department MODIFY Dname  varchar(50);
+
+ALTER TABLE department DROP CONSTRAINT un ;
+
