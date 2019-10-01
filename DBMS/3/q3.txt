@@ -1,0 +1,131 @@
+###1)
+
+ DECLARE
+   n number(3);
+   s number(3):=0;
+   t number(3);
+ BEGIN
+   n:=&n;
+   t:=n;
+       while t>0 loop
+         s:=s+power((t mod 10),3);
+         t:=trunc(t/10);
+       end loop;
+  
+       if(s=n) then
+         dbms_output.put_line('The Given Number ' || n || ' is an Armstrong Number');
+       else
+         dbms_output.put_line('The Given Number ' || n || ' is Not an Armstrong Number');
+       end if;
+ END;
+/
+
+
+###2)
+
+declare
+	str1 varchar2(50):='&str';
+	str2 varchar2(50);
+	len number;
+	i number;
+ 
+begin
+	len:=length(str1);
+	
+	for i in reverse 1..len
+	loop
+		str2:=str2 || substr(str1,i,1);
+	end loop;
+	
+	dbms_output.put_line('Reverse of String is:'||str2);
+end;
+/
+
+
+
+###3)
+
+declare
+  
+    n number; 
+    m number; 
+    temp number:=0; 
+    rem number; 
+   
+begin
+    n:=&n;
+    m:=n; 
+      
+    -- while loop with condition till n>0 
+    while n>0 
+    loop 
+        rem:=mod(n,10); 
+        temp:=(temp*10)+rem; 
+        n:=trunc(n/10); 
+    end loop; -- end of while loop here 
+      
+    if m = temp
+    then
+        dbms_output.put_line('true'); 
+    else
+        dbms_output.put_line('false'); 
+    end if; 
+end; 
+/ 
+
+
+
+
+
+
+###4)
+
+create table areas ( r number(2), area number (14,2));
+
+declare
+r number(5);
+area number(14,2);
+pi constant number (4,2):=3.14;
+begin
+r:=3;
+while r<=7
+loop
+area:=pi*power(r,2);
+insert into areas values(r,area );
+r:=r+1;
+end loop;
+end;
+/
+
+select * from areas;
+
+
+
+###5)
+create table student(rollno number,name varchar(30),m1 number,m2 number,m3 number,tot_marks number);
+create table gradea(rollno number, name varchar(30),tot_marks number);
+create table gradeb(rollno number, name varchar(30),tot_marks number);
+create table gradec(rollno number, name varchar(30),tot_marks number);
+
+declare
+	rollno number:=&rollno;
+	name varchar(30):='&name';
+	m1 number:=&m1;
+	m2 number:=&m2;
+	m3 number:=&m3;
+	tot_marks number;
+begin
+	tot_marks:=(m1+m2+m3)/3;
+	insert into student values(rollno,name,m1,m2,m3,tot_marks);
+	IF tot_marks>75 THEN
+		insert into gradea values(rollno,name,tot_marks);
+	ELSIF tot_marks>60 THEN
+		insert into gradeb values(rollno,name,tot_marks);
+	ELSE
+		insert into gradec values(rollno,name,tot_marks);
+	END IF;
+end;
+/
+select * from gradea;
+select * from gradebs;
+select * from gradec;
